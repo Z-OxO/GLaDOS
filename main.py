@@ -11,6 +11,10 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 openai.api_key = config["openai"]["api_key"]
 
+
+def Menu():
+    pass
+
 def Gpt_turbo():
     content = audio_reconize()
     completion = openai.ChatCompletion.create(
@@ -20,22 +24,31 @@ def Gpt_turbo():
     ],
     temperature = 0  
     )
-    return print(Fore.LIGHTMAGENTA_EX+"GLaDOS ----> "+completion['choices'][0]['message']['content']+Fore.RESET)
+    print(Fore.LIGHTMAGENTA_EX+"GLaDOS ----> "+completion['choices'][0]['message']['content']+Fore.RESET)
+    choice = input("Another request? (y or n)")
+    while True:
+        choice = input("Another request? (y or n)")
+        if choice == "y":
+            Gpt_turbo()
+        elif choice == "n":
+            Menu()
+        else:
+            print(Fore.RED,"Invalid input")
 
 
 def audio_reconize():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Dites quelque chose...")
+        print(Fore.LIGHTCYAN_EX,"Speak into your microphone to ask a question to GLaDOS ---->",Fore.RESET)
         audio = r.listen(source)
     # Conversion audio en texte
     try:
         text = r.recognize_google(audio, language='fr-FR')
-        print("Vous avez dit : " + text)
+        print(Fore.RED,"You said : " + text)
         return text
     except sr.UnknownValueError:
-        print("Je n'ai pas compris ce que vous avez dit.")
+        print(Fore.RED,"I did not understand what you said.")
     except sr.RequestError as e:
-        print("Erreur lors de la requête au service de reconnaissance vocale : {0}".format(e))
+        print(Fore.RED,"Error when requesting the speech recognition service :{0}".format(e))
         
 Gpt_turbo()
