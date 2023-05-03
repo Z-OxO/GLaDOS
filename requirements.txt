@@ -1,0 +1,6 @@
+openai==0.27.6
+configparser==5.3.0
+colorama==0.4.6
+pyaudio==0.2.13
+SpeechRecognition==3.10.0
+pyttsx3==2.90
