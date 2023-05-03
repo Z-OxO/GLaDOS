@@ -6,6 +6,8 @@
 <body>
 	<h1>GLaDOS Chatbot</h1>
 	This is a chatbot based on the OpenAI GPT. The chatbot simulates a conversation with the character GLaDOS from the video game Portal.
+	<br></br>
+	<img src="https://cdn-uploads.gameblog.fr/images/actu/full/72447_gb_news.jpg">
 	<h2>How to Use</h2>
 	<ol>
 		<li>Install the required libraries using the command: <pre><code>pip install -r requirements.txt</code></pre></li>
