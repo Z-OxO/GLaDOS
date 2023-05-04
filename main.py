@@ -5,6 +5,7 @@ from pyaudio import *
 import speech_recognition as sr
 import pyttsx3
 import os
+from banner import *
 
 
 # Charge la clé API OpenAI depuis la configuration
@@ -12,7 +13,6 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 openai.api_key = config["openai"]["api_key"]
 languageconfig = config["language"]["lang"]
-
 
 
 if not os.path.exists("Conversation"):
@@ -27,12 +27,21 @@ with open(file,"w") as fichier:
 
 
 def Menu():
-    pass
+    print(banner_menu)
+    text_to_speech("Hello im GLaDOS")
+    while True:
+        choice = input(Fore.LIGHTCYAN_EX+"Wants to communicate with GLaDOS: (y or n)")
+        if choice == "y":
+            os.system("cls")
+            Gpt_turbo()
+        if choice == "n":
+            exit("see you later")
+        
 
 
 def text_to_speech(text):
     engine = pyttsx3.init()
-    engine.setProperty("voice","fr-FR")
+    engine.setProperty("voice",languageconfig)
     engine.say(text)
     engine.runAndWait()
 
@@ -92,4 +101,4 @@ def audio_reconize():
     except sr.RequestError as e:
         exit(Fore.LIGHTRED_EX,"Error when requesting the speech recognition service :{0}".format(e))
         
-Gpt_turbo()
+Menu()
